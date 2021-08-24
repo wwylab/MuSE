@@ -1,47 +1,49 @@
-C_SRC    = bgzf.c faidx.c index.c kprobaln.c kstring.c razf.c
-CPP_SRC  = MuSE.cpp bam_supplement.cpp bam.cpp fet.cpp sample.cpp
-BIN      = MuSE
-C_OBJ    = $(C_SRC:.c=.o)
-CPP_OBJ  = $(CPP_SRC:.cpp=.o)
-CPP      = g++
-CPPFLAGS = -O3 -w -g -Wall -D_FILE_OFFSET_BITS=64 -D_LARGEFILE64_SOURCE
+CPP := g++
+CC := gcc
+LINK := g++
+mkfile_dir := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
-$(BIN): $(C_OBJ) $(CPP_OBJ)
-	$(CPP) $(C_OBJ) $(CPP_OBJ) -o $(BIN) -lm -lz
-	
-bam.o : bam.cpp
-	$(CPP) $(CPPFLAGS) -c bam.cpp -o bam.o
-	
-MuSE.o : MuSE.cpp
-	$(CPP) $(CPPFLAGS) -c MuSE.cpp -o MuSE.o
+CSOURCES= $(wildcard src/*.c)  
+CPPSOURCES= $(wildcard src/*.cpp)
+OBJS=$(CSOURCES:.c=.c.o)  $(CPPSOURCES:.cpp=.cpp.o)
+COMMONOBJS= lib/libhts.a lib/libboost_iostreams.a lib/libtcmalloc_minimal.a
+# Warnings is included in WarningsAsErrors to make sure that the warning is enabled.
+Warnings=-Wreturn-type -Warray-bounds -Wmaybe-uninitialized -Waddress
+WarningsAsErrors=$(Warnings) -Werror=return-type -Werror=array-bounds -Werror=address
+CFLAGS=  $(WarningsAsErrors) -Wno-unused-function
+CPPFLAGS=  $(WarningsAsErrors) -Wno-unused-function -std=c++11
 
-bam_supplement.o : bam_supplement.cpp
-	$(CPP) $(CPPFLAGS) -c bam_supplement.cpp -o bam_supplement.o
+RELEASE_FLAGS= -O3 -g
 
-bgzf.o : bgzf.c
-	$(CPP) $(CPPFLAGS) -c bgzf.c -o bgzf.o
-	
-faidx.o : faidx.c
-	$(CPP) $(CPPFLAGS) -c faidx.c -o faidx.o
+# Includes
+INCLUDES = -Iinc/
+#
+# Common flags
+COMMONFLAGS += $(INCLUDES)
 
-kprobaln.o : kprobaln.c
-	$(CPP) $(CPPFLAGS) -c kprobaln.c -o kprobaln.o
+CXXFLAGS += $(COMMONFLAGS)
+CFLAGS += $(COMMONFLAGS)
+CPPFLAGS += $(COMMONFLAGS)
+COMMONLIBS= -Llib/ -lz -lm -lpthread -lbz2 -lcurl -lcrypto -llzma
 
-kstring.o : kstring.c
-	$(CPP) $(CPPFLAGS) -c kstring.c -o kstring.o
-	
-razf.o : razf.c
-	$(CPP) $(CPPFLAGS) -c razf.c -o razf.o
+#LIBS += $(COMMONLIBS) -ltcmalloc
+LIBS += $(COMMONLIBS)
 
-sample.o : sample.cpp
-	$(CPP) $(CPPFLAGS) -c sample.cpp -o sample.o
+TARGET = MuSE
+LINKLINE = $(LINK)  -O3 -o $(TARGET) $(OBJS) $(COMMONOBJS) $(MATCHOBJS) $(LIBS)
 
-fet.o : fet.cpp
-	$(CPP) $(CPPFLAGS) -c fet.cpp -o fet.o
+#all:
+all: $(TARGET) 
+.SUFFIXES: .c .cpp .o
 
-index.o : index.c
-	$(CPP) $(CPPFLAGS) -c index.c -o index.o
+%.c.o: %.c
+	$(CC) $(CFLAGS) $(RELEASE_FLAGS) -c $< -o $@
 
-clean: 
-	rm -f $(C_OBJ) $(CPP_OBJ) $(BIN)
+%.cpp.o: %.cpp
+	$(CPP) $(CPPFLAGS) $(RELEASE_FLAGS) -c $< -o $@
 
+$(TARGET): $(OBJS) Makefile
+	$(LINKLINE)
+
+clean:
+	rm -f $(OBJS) $(TARGET)
