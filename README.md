@@ -50,7 +50,7 @@ Options:
          -n INT     number of cores specified (default=1)
 
 Example: 
-MuSE call –f Reference.Genome –O Output.Prefix -n 20 Tumor.bam Matched.Normal.bam
+MuSE call -f Reference.Genome -O Output.Prefix -n 20 Tumor.bam Matched.Normal.bam
 ```
 
 The second step, `MuSE sump`, takes as input the output file from `MuSE call` and File (3). This step computes tier-based cutoffs from a sample-specific error model. We provide two options for building the model, one for WES data (option `-E`), and the other for WGS data (option `-G`).
@@ -67,7 +67,7 @@ Options:
                     genome used in 'MuSE call'
 
 Example:
-MuSE sump -I Output.Prefix.MuSE.txt -G –O Output.Prefix.vcf –D dbsnp.vcf.gz
+MuSE sump -I Output.Prefix.MuSE.txt -G -O Output.Prefix.vcf -D dbsnp.vcf.gz
 ```
 
 ## Output of MuSE
