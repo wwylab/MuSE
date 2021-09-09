@@ -74,7 +74,7 @@ MuSE sump -I Output.Prefix.MuSE.txt -G -O Output.Prefix.vcf -D dbsnp.vcf.gz
 The final output of MuSE is a VCF file (v4.1) that lists the identified somatic variants along with tiered rankings (in the `FILTER` field) for these mutations. The rankings range from `PASS` which is the highest confidence category, followed by `Tiers 1-5`, with `Tier 5` being the tier at the lowest confidence. The INFO field of the VCF file is always `SOMATIC`.
 
 ## Acknowledgement
-We thank Mehrzad Samadi and his team from Nvidia Corporation, including Tong Zhu, Timothy Harkins and Ankit Sethia, for their contributions towards implementing accelerating techniques in the ` MuSE call` step.
+We thank Mehrzad Samadi and his team from Nvidia Corporation, including Tong Zhu, Timothy Harkins and Ankit Sethia, for their contributions towards implementing accelerating techniques in the ` MuSE call` step in MuSE2.0.
 
 ## Reference
 ```
