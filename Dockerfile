@@ -4,9 +4,11 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y git g++ cmake autoconf libtool liblzma-dev zlib1g-dev libbz2-dev libcurl3-dev libssl-dev
 
-RUN git clone --recursive https://github.com/wwylab/MuSE
-RUN cd MuSE && ./install_muse.sh
+ADD . /MuSE
+# Remove CR from DOS if running in Windows
+RUN cd MuSE && tr -d '\r' < install_muse.sh > install_muse_unix.sh
+RUN cd MuSE && bash ./install_muse_unix.sh
 
 RUN mkdir /MuSE/bin
 RUN cp /MuSE/MuSE /MuSE/bin
-RUN PATH=$PATH:/MuSE/bin
+ENV PATH=$PATH:/MuSE/bin
