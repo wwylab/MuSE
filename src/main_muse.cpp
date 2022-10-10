@@ -14,13 +14,14 @@ contributions of implementing accelerating techniques in the ‘MuSE call’ ste
 #include "muse_reader.h"
 #include "timer.h"
 #include "tabix.h"
+#include <omp.h>
 
 using namespace std;
 
 int tid_global = 0;
 int64_t pos_global = -1;
 
-void muse_sump(const char *inFile, const char *outFile, const char *dbsnpFile, bool isWGS, bool isWES, int argc, char *argv[]);
+void muse_sump(const char *inFile, const char *outFile, const char *dbsnpFile, bool isWGS, bool isWES, int num_threads, int argc, char *argv[]);
 
 void monitorFun(PBReader* reader, std::atomic<uint32_t>& processQSize, PileupSpscQ& writeQ, std::atomic<bool>& monitorFlag){
 	while(monitorFlag.load()){
@@ -208,21 +209,24 @@ void get_MuseCallOpts(int argc, char* argv[]){
 }
 
 void get_MuseSumpOpts(int argc, char *argv[]){
-	int        c;
+    int        c;
     const char *outFile     = NULL;
     const char *inFile      = NULL;
     const char *dbsnpFile   = NULL;
     bool       isWGS        = false;
     bool       isWES        = false;
 
+    const char *threadNum_c = "0";
+    int threadNum;
     // command options
     //
 
-	while((c = getopt(argc, argv, "I:O:D:GE")) >= 0) {
+	while((c = getopt(argc, argv, "I:O:D:n:GE")) >= 0) {
         switch(c) {
         case 'I': inFile    = optarg; break;
         case 'O': outFile   = optarg; break;
         case 'D': dbsnpFile = optarg; break;
+	case 'n': threadNum_c  = optarg; break; 
         case 'G': isWGS     = true;   break;
         case 'E': isWES     = true;   break;
         }
@@ -235,6 +239,7 @@ void get_MuseSumpOpts(int argc, char *argv[]){
         fprintf(stderr, "         -G         input generated from whole genome sequencing data\n");
         fprintf(stderr, "         -E         input generated from whole exome sequencing data\n");
         fprintf(stderr, "         -O STR     output file name (VCF format)\n");
+	fprintf(stderr, "         -n int     number of cores specified (default=1)\n");
         fprintf(stderr, "         -D FILE    dbSNP vcf file that should be bgzip compressed,\n");
         fprintf(stderr, "                    tabix indexed and based on the same reference\n");
         fprintf(stderr, "                    genome used in 'MuSE call'\n");
@@ -264,6 +269,19 @@ void get_MuseSumpOpts(int argc, char *argv[]){
         exit(EXIT_FAILURE);
     }
 
+    try{
+	threadNum = stoi (threadNum_c);
+    }
+    catch(const std::exception& e){
+	cerr << e.what() << endl;
+	exit(EXIT_FAILURE);
+    }
+
+    if (threadNum < 1){
+	cerr << "Number of cores cannot be less than 1. Exiting..." << endl;
+	exit(EXIT_FAILURE);
+    } 
+    
     // check if dbSNP file was bgzipped
     //
 	if(dbsnpFile) {
@@ -298,7 +316,24 @@ void get_MuseSumpOpts(int argc, char *argv[]){
         free(fnidx);
     }
 
-    muse_sump(inFile, outFile, dbsnpFile, isWGS, isWES, argc, argv);
+    int num_threads = 1;
+
+#ifdef _OPENMP
+#pragma omp parallel
+    {
+#pragma omp master
+        num_threads = omp_get_num_threads();
+    }
+#else
+#endif
+
+    if (threadNum > num_threads) threadNum = num_threads;
+    
+#ifdef _OPENMP 
+    omp_set_num_threads(threadNum);
+#endif
+    
+    muse_sump(inFile, outFile, dbsnpFile, isWGS, isWES, threadNum, argc, argv);
 }
 
 //================================================================================================= Main

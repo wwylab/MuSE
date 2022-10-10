@@ -4,6 +4,7 @@
 #include <sys/stat.h>
 #include <math.h>
 #include <float.h>
+#include "omp.h"
 #include "muse_const.h"
 
 using namespace std;

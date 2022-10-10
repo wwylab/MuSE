@@ -103,7 +103,7 @@ public:
 		minAltFraction    = 0.005;
 		min_output_brlens = 1e-4;
 		flag              = MPLP_NO_ORPHAN;
-		flag_mask = BAM_DEF_MASK;
+		flag_mask 		  = BAM_DEF_MASK;
 
 		ref = new Reference();
 		ref->openFile(refName.c_str());
@@ -127,7 +127,5 @@ struct bam_pileup1_t_pb{
 	cstate_t s;
 	bool is_del, is_head, is_tail, is_refskip;
 };
-
-
 
 #endif

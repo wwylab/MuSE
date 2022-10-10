@@ -50,6 +50,7 @@ public:
 		}
 		return mHeader_normal->target_name[i];
 	}
+	
 	PBReader(std::string& tumorName, std::string& normalName, mplp_conf_t* conf_in): conf(conf_in){
 		ReadingDone.store(false);
 		curPtr = nullptr;   	

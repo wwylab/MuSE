@@ -62,12 +62,17 @@ Options:
          -G         input generated from whole genome sequencing data
          -E         input generated from whole exome sequencing data
          -O STR     output file name (VCF format)
+         -n int     number of cores specified (default=1)
          -D FILE    dbSNP vcf file that should be bgzip compressed,
                     tabix indexed and based on the same reference
                     genome used in 'MuSE call'
 
 Example:
-MuSE sump -I Output.Prefix.MuSE.txt -G -O Output.Prefix.vcf -D dbsnp.vcf.gz
+WGS
+MuSE sump -I Output.Prefix.MuSE.txt -O Output.Prefix.vcf -G -n 10 -D dbsnp.vcf.gz
+
+or WES
+MuSE sump -I Output.Prefix.MuSE.txt -O Output.Prefix.vcf -E -n 10 -D dbsnp.vcf.gz
 ```
 
 ## Output of MuSE
