@@ -24,7 +24,7 @@ COMMONFLAGS += $(INCLUDES)
 CXXFLAGS += $(COMMONFLAGS)
 CFLAGS += $(COMMONFLAGS)
 CPPFLAGS += $(COMMONFLAGS)
-COMMONLIBS= -Llib/ -lz -lm -lpthread -lbz2 -lcurl -lcrypto -llzma
+COMMONLIBS= -Llib/ -lz -lm -lpthread -lbz2 -lcurl -lcrypto -llzma -fopenmp
 
 #LIBS += $(COMMONLIBS) -ltcmalloc
 LIBS += $(COMMONLIBS)
