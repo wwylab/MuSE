@@ -239,7 +239,7 @@ void get_MuseSumpOpts(int argc, char *argv[]){
         fprintf(stderr, "         -G         input generated from whole genome sequencing data\n");
         fprintf(stderr, "         -E         input generated from whole exome sequencing data\n");
         fprintf(stderr, "         -O STR     output file name (VCF format)\n");
-	fprintf(stderr, "         -n int     number of cores specified (default=1)\n");
+	fprintf(stderr, "         -n INT     number of cores specified (default=1)\n");
         fprintf(stderr, "         -D FILE    dbSNP vcf file that should be bgzip compressed,\n");
         fprintf(stderr, "                    tabix indexed and based on the same reference\n");
         fprintf(stderr, "                    genome used in 'MuSE call'\n");

@@ -90,7 +90,14 @@ std::string IntToString(int x) {
     return o.str();
 }
 
-void muse_sump(const char *inFile, const char *outFile, const char *dbsnpFile, bool isWGS, bool isWES, int num_threads, int argc, char *argv[]){
+void muse_sump(const char *inFile, 
+               const char *outFile, 
+               const char *dbsnpFile, 
+               bool isWGS, 
+               bool isWES, 
+               int num_threads, 
+               int argc, 
+               char *argv[]){
     
     int        minDepth     = 8;
     double     passVAF      = 0.02;
@@ -290,6 +297,7 @@ void muse_sump(const char *inFile, const char *outFile, const char *dbsnpFile, b
 	}
     }
 
+    buffer = "";
     int dataSize = dataParser.size();
     
     for(int index = 0; index < dataSize; index++){
@@ -644,7 +652,7 @@ void muse_sump(const char *inFile, const char *outFile, const char *dbsnpFile, b
         int    emReplicate  = 50;
         int    maxIteration = 5000;
         int    maxRestarts  = 20;
-        
+        int    dataSize     = (int)lnTEVAF.size();
         double epsilon      = 1e-08;
 
         // partition
