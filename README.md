@@ -6,7 +6,7 @@ An accurate and ultra-fast somatic mutation calling tool for whole-genome sequen
 
 Detection of somatic point mutations is a key component of cancer genomics research, which has been rapidly developing since next-generation sequencing (NGS) technology revealed its potential for describing genetic alterations in cancer. We previously launched MuSE 1.0<sup>1</sup>, a statistical approach for mutation calling based on a Markov substitution model for molecular evolution. It has been used as a major contributing caller in a consensus calling strategy by the TCGA PanCanAtlas project<sup>2</sup> and the ICGC Pan-Cancer Analysis of Whole Genomes (PCAWG) initiative<sup>3</sup>.
 
-We have now released MuSE 2.0, which is powered by parallel computing by taking advantage of multi-core resources on a machine and an efficient way of memory allocation. MuSE 2.0 takes the same input files and outputs the same results as MuSE 1.0, but achieves a 40-50x speedup compared to MuSE 1.0. For example, MuSE 1.0 takes 2-4 hours to run on a pair tumor-normal WES data, and ∼40 hours for one pair of tumor-normal WGS data. On the other hand, MuSE 2.0 can complete running one pair of tumor-normal WES data in 5-7 minutes and one pair of tumor-normal WGS data in an hour, thus removing somatic mutation calling as a time-consuming obstacle for cancer genomic studies.
+We have now released MuSE 2.0 <sup>4</sup>, which is powered by a multi-threaded producer-consumer model and an efficient way of memory allocation. MuSE 2.0 speeds up 50 times than MuSE1.0 and 8-80 times than the other callers adopted in the Genomic Data Commons DNA-seq analysis pipeline, i.e., [MuTect2](https://gatk.broadinstitute.org/hc/en-us/articles/360037593851-Mutect2), [SomaticSniper](https://gmt.genome.wustl.edu/packages/somatic-sniper/) and [VarScan2](https://varscan.sourceforge.net/). MuSE 2.0 can reduce the computing time cost of a somatic mutation calling project from ∼40 hours to < 1 hour for WGS data, and from 2-4 hours to ~5 minutes for WES data, from each pair of tumor-normal samples. We also performed a benchmarking study, which suggests combining MuSE 2.0 and the recently accelerated [Strelka2](https://github.com/Illumina/strelka) can almost fully recover PCAWG consensus mutation calls (based on 4 popular callers), as well as recover a majority of the TCGA consensus mutation calls (based on 5 popular callers). Please find our preprint for more information at [https://www.biorxiv.org/content/10.1101/2023.07.04.547569v1](https://www.biorxiv.org/content/10.1101/2023.07.04.547569v1).
 
 ## Platform
 1.	MuSE 1.0 supports both Linux system and MacOS.
@@ -78,6 +78,11 @@ MuSE sump -I Output.Prefix.MuSE.txt -O Output.Prefix.vcf -E -n 10 -D dbsnp.vcf.g
 ## Output of MuSE
 The final output of MuSE is a VCF file (v4.1) that lists the identified somatic variants along with tiered rankings (in the `FILTER` field) for these mutations. The rankings range from `PASS` which is the highest confidence category, followed by `Tiers 1-5`, with `Tier 5` being the tier at the lowest confidence. The INFO field of the VCF file is always `SOMATIC`.
 
+**Note:**
+1. For WGS data, we recommend to include the calls of all categories from MuSE for downstream analysis.
+2. For WES data, we recommended to include the calls of all categories except Tier 5 from MuSE for downstream analysis. We also recommend the user to filter out non-targeted calls from MuSE using the exome capture kit BED file, which is usually available in the experiment.
+
+
 ## Acknowledgement
 We thank Mehrzad Samadi and his team from Nvidia Corporation, including Tong Zhu, Timothy Harkins and Ankit Sethia, for their contributions towards implementing accelerating techniques in the ` MuSE call` step in MuSE2.0.
 
@@ -88,4 +93,6 @@ We thank Mehrzad Samadi and his team from Nvidia Corporation, including Tong Zhu
 2.  Ellrott, K. et al. (2018) ‘Scalable Open Science Approach for Mutation Calling of Tumor Exomes Using Multiple Genomic Pipelines’, Cell Systems. Cell Press, 6(3), pp. 271-281.e7. doi: 10.1016/j.cels.2018.03.002.
 
 3.  Campbell, P. J. et al. (2020) ‘Pan-cancer analysis of whole genomes’, Nature. Nature Publishing Group, 578(7793), pp. 82–93. doi: 10.1038/s41586-020-1969-6.
+
+4. Ji, S., Zhu, T., Sethia, A., Wang, W. (2023) 'Accelerated somatic mutation calling for whole-genome and whole-exome sequencing data from heterogenous tumor samples', bioRxiv.2023.07.04.547569. doi: https://doi.org/10.1101/2023.07.04.547569.
 ```
