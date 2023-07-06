@@ -94,5 +94,5 @@ We thank Mehrzad Samadi and his team from Nvidia Corporation, including Tong Zhu
 
 3.  Campbell, P. J. et al. (2020) ‘Pan-cancer analysis of whole genomes’, Nature. Nature Publishing Group, 578(7793), pp. 82–93. doi: 10.1038/s41586-020-1969-6.
 
-4. Ji, S., Zhu, T., Sethia, A., Wang, W. (2023) 'Accelerated somatic mutation calling for whole-genome and whole-exome sequencing data from heterogenous tumor samples', bioRxiv.2023.07.04.547569. doi: https://doi.org/10.1101/2023.07.04.547569.
+4.  Ji, S., Zhu, T., Sethia, A., Wang, W. (2023) 'Accelerated somatic mutation calling for whole-genome and whole-exome sequencing data from heterogenous tumor samples', bioRxiv.2023.07.04.547569. doi: https://doi.org/10.1101/2023.07.04.547569.
 ```
