@@ -1,6 +1,6 @@
 ---
 name: Issue report
-about: Create a report to help us improve our pipelines
+about: Create a report to help us improve MuSE
 title: ""
 labels: ''
 assignees: ''
