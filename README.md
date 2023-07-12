@@ -83,6 +83,9 @@ The final output of MuSE is a VCF file (v4.1) that lists the identified somatic 
 2. For WES data, we recommended to include the calls of all categories except Tier 5 from MuSE for downstream analysis. We also recommend the user to filter out non-targeted calls from MuSE using the exome capture kit BED file, which is usually available in the experiment.
 
 
+## Report an issue/bug
+Please follow the [issue report template](https://github.com/wwylab/MuSE/blob/master/issue_report_template.md) to report your issue/bug when use MuSE 2.0/1.0, which can help us fix it quickly. 
+
 ## Acknowledgement
 We thank Mehrzad Samadi and his team from Nvidia Corporation, including Tong Zhu, Timothy Harkins and Ankit Sethia, for their contributions towards implementing accelerating techniques in the ` MuSE call` step in MuSE2.0.
 
