@@ -30,7 +30,8 @@ COMMONLIBS= -Llib/ -lz -lm -lpthread -lbz2 -lcurl -lcrypto -llzma -fopenmp
 LIBS += $(COMMONLIBS)
 
 TARGET = MuSE
-LINKLINE = $(LINK)  -O3 -o $(TARGET) $(OBJS) $(COMMONOBJS) $(MATCHOBJS) $(LIBS)
+LINKLINE = $(LINK) -O3 -g -o $(TARGET) $(OBJS) $(COMMONOBJS) $(MATCHOBJS) $(LIBS)
+OPENMP= -fopenmp
 
 #all:
 all: $(TARGET) 
@@ -40,7 +41,7 @@ all: $(TARGET)
 	$(CC) $(CFLAGS) $(RELEASE_FLAGS) -c $< -o $@
 
 %.cpp.o: %.cpp
-	$(CPP) $(CPPFLAGS) $(RELEASE_FLAGS) -c $< -o $@
+	$(CPP) $(CPPFLAGS) $(RELEASE_FLAGS) $(OPENMP) -c $< -o $@
 
 $(TARGET): $(OBJS) Makefile
 	$(LINKLINE)
