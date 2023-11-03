@@ -61,18 +61,18 @@ void processReadFun(PBReader* reader, std::atomic<bool>& gatherDone, PileUpLockF
 		node Node = {read, bam_calend(read)};
 		region = iter.push(Node);
 		if (region){
+			while(writeQ.push(region) == false);
 			while(processQSize.load() > PILEUP_SIZE);
 			assert(processQ.push(region));
 			++processQSize;
-			while(writeQ.push(region) == false);
 		}
 	}
 
 	while(region = iter.pop()){
+		while(writeQ.push(region) == false);
 		while(processQSize.load() > PILEUP_SIZE);
 		assert(processQ.push(region));
 		++processQSize;
-		while(writeQ.push(region) == false);
 	}
 	gatherDone.store(true);
 
