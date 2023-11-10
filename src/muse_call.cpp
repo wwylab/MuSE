@@ -651,7 +651,7 @@ inline int bam_aux_type2size(int x) {
 }
 
 #define __skip_tag(s) do { \
-int type = toupper(*(s)); \
+int type = (*(s)); \
 ++(s); \
 if (type == 'Z' || type == 'H') { while (*(s)) ++(s); ++(s); } \
 else if (type == 'B') (s) += 5 + bam_aux_type2size(*(s)) * (*(int32_t*)((s)+1)); \
