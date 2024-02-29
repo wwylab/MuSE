@@ -54,17 +54,17 @@ This pipeline requires the user to create a `project_info.tsv` file to provide t
 
 If the raw data input is BAM:
 
-|PatientID   |    TumorName   |    TumorPath   |    NormalName   |   NormalPath   | DataType |
-|------------|----------------|----------------|-----------------|----------------|----------|----------|
-|P1  | tumor  | ABSOLUTE_PATH_tumor1.bam  |  normal | ABSOLUTE_PATH_normal1.bam  |  bam |
-|P2  | tumor  | ABSOLUTE_PATH_tumor2.bam  |  normal | ABSOLUTE_PATH_normal2.bam  |  bam |
+| PatientID | TumorName | TumorPath | NormalName | NormalPath | DataType |
+| ---------- | --------- | ---------- | --------- | ---------- | --------- |
+| P1  | tumor  | ABSOLUTE_PATH_tumor1.bam  |  normal | ABSOLUTE_PATH_normal1.bam  |  bam |
+| P2  | tumor  | ABSOLUTE_PATH_tumor2.bam  |  normal | ABSOLUTE_PATH_normal2.bam  |  bam |
 
 If the raw data input is FASTQ from pair-end sequencing:
 
-|PatientID   |    TumorName   |    TumorPath   |    NormalName   |   NormalPath   | DataType |
-|------------|----------------|----------------|-----------------|----------------|----------|----------|
-|P1  | tumor  | ABSOLUTE_PATH_tumor1_R1.fq.gz,ABSOLUTE_PATH_tumor1_R2.fq.gz  |  normal | ABSOLUTE_PATH_normal1_R1.fq.gz,ABSOLUTE_PATH_normal1_R2.fq.gz  |  fastq |
-|P2  | tumor  | ABSOLUTE_PATH_tumor2_R1.fq.gz,ABSOLUTE_PATH_tumor2_R2.fq.gz  |  normal | ABSOLUTE_PATH_normal2_R1.fq.gz,ABSOLUTE_PATH_normal2_R2.fq.gz  |  fastq |
+| PatientID | TumorName | TumorPath | NormalName | NormalPath | DataType |
+| ---------- | --------- | ---------- | --------- | ---------- | --------- |
+| P1  | tumor  | ABSOLUTE_PATH_tumor1_R1.fq.gz,ABSOLUTE_PATH_tumor1_R2.fq.gz  |  normal | ABSOLUTE_PATH_normal1_R1.fq.gz,ABSOLUTE_PATH_normal1_R2.fq.gz  |  fastq |
+| P2  | tumor  | ABSOLUTE_PATH_tumor2_R1.fq.gz,ABSOLUTE_PATH_tumor2_R2.fq.gz  |  normal | ABSOLUTE_PATH_normal2_R1.fq.gz,ABSOLUTE_PATH_normal2_R2.fq.gz  |  fastq |
 
 ## Environment configuration
 
