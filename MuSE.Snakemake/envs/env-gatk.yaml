@@ -1,0 +1,6 @@
+# conda environment configuration for snakemake --use-conda
+channels:
+    - conda-forge
+    - bioconda
+dependencies:
+    - gatk4=4.2.4.0

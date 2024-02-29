@@ -1,0 +1,41 @@
+workdir: PATH_TO_WORK_DIRECTORY
+
+project_title: PROJECT
+project_info: PATH_TO_project_info.tsv
+raw_data: Raw
+
+NGS_data_type: WES # or WGS
+
+WGS: 
+    mem_mb: 102400 # 100gb memory for WGS
+    mem_mbi: 100000 # 100gb memory for WGS
+    mem_gb: 100 # 100gb memory for WGS
+    large: 20
+    medium: 10
+    small: 5
+    filtering:
+        gnomad_maf: 0.01
+        normal_nondnsnp_dp: 8
+        normal_dnsnp_dp: 19
+
+WES: 
+    mem_mb: 61440 # 60gb memory for WES
+    mem_mbi: 60000 # 60gb memory for WES
+    mem_gb: 60 # 60gb memory for WES
+    large: 20
+    medium: 8
+    small: 3
+    filtering:
+        gnomad_maf: 0.01
+        normal_nondnsnp_dp: 8
+        normal_dnsnp_dp: 19
+
+ref:
+    root: ROOT_OF_REFERENCE_FILES
+    version: hg38 # or hg19
+    genome: Homo_sapiens_assembly38.fasta # change it if necessary
+    known_indel: Mills_and_1000G_gold_standard.indels.hg38.sort.vcf # change it if necessary
+    known_snp: Homo_sapiens_assembly38.dbsnp138.vcf.gz # change it if necessary
+    strelka_bed: hg38.bed.gz  # change it if necessary
+
+bam_compression_level: 9

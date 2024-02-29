@@ -1,0 +1,7 @@
+# conda environment configuration for snakemake --use-conda
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - fastqc=0.12.1
+  - cancerit-allelecount=4.3.0

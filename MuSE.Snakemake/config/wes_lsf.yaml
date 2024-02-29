@@ -1,0 +1,127 @@
+__default__:
+  - "-P ###"
+  - "-W 24:00"
+  - "-q medium"
+  - "-n 20"
+  - "-M 60"
+  - "-R rusage[mem=60]"
+
+genome_faidx:
+  - "-W 3:00"
+  - "-q short"
+  - "-M 60"
+  - "-R rusage[mem=60]"
+
+genome_dict:
+  - "-W 3:00"
+  - "-q short"
+  - "-M 60"
+  - "-R rusage[mem=60]"
+
+fastqc_before_trimming:
+  - "-W 3:00"
+  - "-q short"
+  - "-M 60"
+  - "-R rusage[mem=60]"
+
+fastqc_after_trimming:
+  - "-W 3:00"
+  - "-q short"
+  - "-M 60"
+  - "-R rusage[mem=60]"
+
+trim_reads:
+  - "-W 3:00"
+  - "-q short"
+  - "-M 60"
+  - "-R rusage[mem=60]"
+
+align_reads:
+  - "-W 3:00"
+  - "-q short"
+  - "-M 60"
+  - "-R rusage[mem=60]"
+
+sort_bam:
+  - "-W 3:00"
+  - "-q short"
+  - "-M 60"
+  - "-R rusage[mem=60]"
+
+collect_alignment_summary_after_alignment:
+  - "-W 3:00"
+  - "-q short"
+  - "-M 60"
+  - "-R rusage[mem=60]"
+
+mark_duplicates:
+  - "-W 3:00"
+  - "-q short"
+  - "-M 60"
+  - "-R rusage[mem=60]"
+
+collect_alignment_summary_after_mark_duplicates:
+  - "-W 3:00"
+  - "-q short"
+  - "-M 60"
+  - "-R rusage[mem=60]"
+
+mutation_calling_strelka2:
+  - "-W 3:00"
+  - "-q short"
+  - "-M 60"
+  - "-R rusage[mem=60]"
+
+mutation_calling_muse2:
+  - "-W 3:00"
+  - "-q short"
+  - "-M 60"
+  - "-R rusage[mem=60]"
+
+merge_snvs:
+  - "-W 1:00"
+  - "-q short"
+  - "-M 60"
+  - "-R rusage[mem=60]"
+
+vcf2maf:
+  - "-W 1:00"
+  - "-q short"
+  - "-M 30"
+  - "-R rusage[mem=30]"
+
+adjust_read_depth:
+  - "-W 1:00"
+  - "-q short"
+  - "-M 60"
+  - "-R rusage[mem=60]"
+
+multiqc_preqc:
+  - "-W 1:00"
+  - "-q short"
+  - "-M 30"
+  - "-R rusage[mem=30]"
+
+multiqc_postqc:
+  - "-W 1:00"
+  - "-q short"
+  - "-M 30"
+  - "-R rusage[mem=30]"
+
+multiqc_aligned_bam:
+  - "-W 1:00"
+  - "-q short"
+  - "-M 30"
+  - "-R rusage[mem=30]"
+
+multiqc_mark_dup:
+  - "-W 1:00"
+  - "-q short"
+  - "-M 30"
+  - "-R rusage[mem=30]"
+
+merge_maf:
+  - "-W 1:00"
+  - "-q short"
+  - "-M 30"
+  - "-R rusage[mem=30]"

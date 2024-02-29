@@ -1,0 +1,10 @@
+# conda environment configuration for snakemake --use-conda
+channels:
+    - conda-forge
+    - bioconda
+dependencies:
+    - tabix=1.11
+    - picard=2.23.8
+    - python=3.10
+    - numpy
+    - pandas

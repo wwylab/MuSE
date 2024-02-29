@@ -1,0 +1,8 @@
+# conda environment configuration for snakemake --use-conda
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - cutadapt=4.4
+  - fastqc=0.12.1
+  - trim-galore=0.6.10
