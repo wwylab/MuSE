@@ -1516,7 +1516,7 @@ void WriteHeader(PBLocalFile* outFile, int argc, char * const argv[], bam_hdr_t 
 				std::cerr << "Tumor BAM has no sample information.\n";
 				exit(-1);
 			}
-			outf += string("##TUMOR=\"Sample=") + kSM.s + ",File=" + argv[1] + "\"\n";
+			outf += string("##TUMOR=\"Sample=") + kSM.s + ",File=" + argv[argc-2] + "\"\n";
 			free(kSM.s);
 			break;
 		} else break;
@@ -1540,7 +1540,7 @@ void WriteHeader(PBLocalFile* outFile, int argc, char * const argv[], bam_hdr_t 
 				std::cerr << "Normal BAM has no sample information.\n";
 				exit(-1);
 			}
-			outf += string("##NORMAL=\"Sample=") + kSM.s + ",File=" + argv[2] + "\"\n";
+			outf += string("##NORMAL=\"Sample=") + kSM.s + ",File=" + argv[argc-1] + "\"\n";
 			free(kSM.s);
 			break;
 		} else break;
