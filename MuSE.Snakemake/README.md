@@ -33,7 +33,6 @@ We suggest to download them from the Broad Institute Resource Bundle, and save t
    - Homo_sapiens_assembly38.dict
    - Homo_sapiens_assembly38.fasta.fai
    - Homo_sapiens_assembly38.dbsnp138.vcf
-   - Homo_sapiens_assembly38.dbsnp138.vcf.idx
    - Mills_and_1000G_gold_standard.indels.hg38.vcf.gz
    - Mills_and_1000G_gold_standard.indels.hg38.vcf.gz.tbi
 
@@ -42,9 +41,20 @@ We suggest to download them from the Broad Institute Resource Bundle, and save t
    - Homo_sapiens_assembly19.dict
    - Homo_sapiens_assembly19.fasta.fai
    - Homo_sapiens_assembly19.dbsnp.vcf
-   - Homo_sapiens_assembly19.dbsnp.vcf.idx
    - Mills_and_1000G_gold_standard.indels.b37.vcf.gz
    - Mills_and_1000G_gold_standard.indels.b37.vcf.gz.tbi
+
+**Note:** For Homo_sapiens_assembly38.dbsnp138.vcf and Homo_sapiens_assembly19.dbsnp.vcf, please use the following commands to compress and index:
+
+```
+bgzip -c Homo_sapiens_assembly38.dbsnp138.vcf > Homo_sapiens_assembly38.dbsnp138.vcf.gz
+tabix -p vcf Homo_sapiens_assembly38.dbsnp138.vcf.gz
+```
+or 
+```
+bgzip -c Homo_sapiens_assembly19.dbsnp.vcf > Homo_sapiens_assembly19.dbsnp.vcf.gz
+tabix -p vcf Homo_sapiens_assembly19.dbsnp.vcf.gz
+```
 
 Additionaly, Strelka2 requires a bed file to specific the contigs to call mutations. One can download it from here: hg38 (download both [hg38.bed.gz](https://drive.google.com/file/d/1vrZuTrkRfP6e1agexpHJdST-JZpRmpjc/view?usp=sharing) and [hg38.bed.gz.tbi](https://drive.google.com/file/d/1PXq-AnqUmZHNfPpxfMwFed0D3TkU6pOS/view?usp=sharing)), hg19 (download both [hg19.bed.gz](https://drive.google.com/file/d/1kgpFMnw2h8duU7ts2DHFj3Ksewovv5cb/view?usp=sharing) and [hg19.bed.gz.tbi](https://drive.google.com/file/d/1yzb4K9J7ignDBCWzNBDJJmJpSpn886c5/view?usp=sharing)). Keep them in the same folder as the reference files.
 
@@ -140,10 +150,10 @@ output_file_collection.append("SNVCalling/FinalMAF/final.maf")
 
 
 ## Reference
-```
-1.  Ji, S., Zhu, T., Sethia, A., Wang, W. (2023) 'Accelerated somatic mutation calling for whole-genome and whole-exome sequencing data from heterogenous tumor samples', bioRxiv.2023.07.04.547569. doi: https://doi.org/10.1101/2023.07.04.547569.
 
-2. Kim, S. et al. (2018) 'Strelka2: fast and accurate calling of germline and somatic variants', Nature Methods. Nature Publishing Group, 15(8), pp. 591-594. doi: 10.1038/s41592-018-0051-x.
+1. <ins>Ji S</ins>, Zhu T, Sethia A, **Wang W**. Accelerated somatic mutation calling for whole-genome and whole-exome sequencing data from heterogenous tumor samples. Genome Res. 2024 May 3;. doi: 10.1101/gr.278456.123.
 
-3. McLaren, W. et al. (2016) 'The Ensembl Variant Effect Predictor', Genome biology, 17(1), pp. 1-14. doi: 10.1186/S13059-016-0974-4/TABLES/8.
-```
+2. Kim S, et al. Strelka2: fast and accurate calling of germline and somatic variants. Nature Methods. 2018 Aug 15. 591-594. doi: 10.1038/s41592-018-0051-x.
+
+3. McLaren W, et al. The Ensembl Variant Effect Predictor. Genome Biology. 2016 Jun 6. 1-14. doi: 10.1186/S13059-016-0974-4/TABLES/8.
+
