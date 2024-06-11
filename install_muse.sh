@@ -25,7 +25,7 @@ cd gperftools
 git checkout gperftools-2.9.1
 ./autogen.sh
 ./configure --libdir="$PWD"
-make j4
+make -j4
 make install
 cp libtcmalloc_minimal.a ../lib/
 cd ..
