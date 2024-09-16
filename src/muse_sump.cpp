@@ -410,12 +410,12 @@ void muse_sump(const char *inFile,
     // check if the BAM has multiple read group
     //
     bool isMultiReadGroup = false;
-    for(i = 0; i < ReadGroupCount.size(); i++) {
-        if(ReadGroupCount[i] > 1) {
-            isMultiReadGroup = true;
-            break;
-        }
-    }
+    //for(i = 0; i < ReadGroupCount.size(); i++) {
+    //    if(ReadGroupCount[i] > 1) {
+    //        isMultiReadGroup = true;
+    //        break;
+    //    }
+    //}
 
     // process "MuSE call" header information
     //
