@@ -6,7 +6,7 @@
 
 using namespace std;
 
-std::string Version = "v2.1.1";
+std::string Version = "v2.1.2";
 std::string buildDate = __DATE__;  // e.g. 'Dec 15 2009'
 std::string buildTime = __TIME__;  // e.g. '15:25:56'
 
