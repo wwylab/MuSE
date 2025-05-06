@@ -145,67 +145,66 @@ void mpileup(mplp_conf_t& conf, string& tumorName, string& normalName, string& o
 	moniterThread.join();
 }
 
-void get_MuseCallOpts(int argc, char* argv[]){
-    
+void get_MuseCallOpts(int argc, char* argv[]) {
     int c;
-    string tumorName, normalName, outputName, refName, threadNum_c = "1";
-    int threadNum = 1;
+    string tumorName, normalName, outputName, refName, threadNum_c = "10";  // Default to 10
+    int threadNum = 10;
+    int usableThreads = 1;
 
-	while((c = getopt(argc, argv, "f:n:O:")) >= 0) {
-		switch(c) {
-			case 'f': refName           = optarg;         break;
-			case 'n': threadNum_c       = optarg;         break;
-			case 'O': outputName        = optarg;         break;
-		}
-	}
+    while((c = getopt(argc, argv, "f:n:O:")) >= 0) {
+        switch(c) {
+            case 'f': refName     = optarg; break;
+            case 'n': threadNum_c = optarg; break;
+            case 'O': outputName  = optarg; break;
+        }
+    }
 
-    if (argc == 2){
-		fprintf(stderr, "\n");
-		fprintf(stderr, "Usage:   MuSE call [options] tumor.bam matched_normal.bam\n");
-		fprintf(stderr, "Options:\n");
-		fprintf(stderr, "         -f FILE    faidx indexed reference sequence file\n");
-		fprintf(stderr, "         -O STR     output file name (suffix '.MuSE.txt' is\n");
-		fprintf(stderr, "                    automatically added)\n");
-		fprintf(stderr, "         -n INT     number of cores specified (default=1)\n");
-		fprintf(stderr, "\n");
-
+    if (argc == 2) {
+        fprintf(stderr, "\nUsage:   MuSE call [options] tumor.bam matched_normal.bam\n");
+        fprintf(stderr, "Options:\n");
+        fprintf(stderr, "         -f FILE    faidx indexed reference sequence file\n");
+        fprintf(stderr, "         -O STR     output file name (suffix '.MuSE.txt' is automatically added)\n");
+        fprintf(stderr, "         -n INT     number of total threads (default = 10; minimum = 10)\n\n");
         exit(EXIT_FAILURE);
     }
 
-    if (argc <= optind + 2){
-        cerr << "Wrong argument. Existing..." << endl;
-        exit(EXIT_FAILURE);
-    }
-    
-    try{
-        threadNum = stoi (threadNum_c);
-    }
-    catch(const std::exception& e){
-        cerr << e.what() << endl;
+    if (argc <= optind + 2) {
+        cerr << "Wrong argument. Exiting..." << endl;
         exit(EXIT_FAILURE);
     }
 
-    if (threadNum < 1){
-        cerr << "Number of cores cannot be less than 1. Exiting..." << endl;
-		exit(EXIT_FAILURE);
+    try {
+        threadNum = stoi(threadNum_c);
+    } catch(const std::exception& e) {
+        cerr << "Invalid thread number: " << e.what() << endl;
+        exit(EXIT_FAILURE);
     }
 
-	if (refName.empty()){
-		cerr << "No reference file specified. Exiting..." << endl;
-		exit(EXIT_FAILURE);
-	}
+    if (threadNum < 10) {
+        cerr << "[ERROR] Minimum total thread count is 10. You requested " << threadNum
+             << ". Exiting without execution." << endl;
+        exit(EXIT_FAILURE);
+    }
 
-	if (outputName.empty()){
-		cerr << "No output file name specified. Exiting..." << endl;
-		exit(EXIT_FAILURE);
-	}
+    usableThreads = threadNum - 9;
+    cerr << "[INFO] Using 9 reserved threads for core modules. " 
+         << usableThreads << " threads will be used for parallel processing." << endl;
 
-    tumorName = argv[argc-2];
-    normalName = argv[argc-1];
+    if (refName.empty()) {
+        cerr << "No reference file specified. Exiting..." << endl;
+        exit(EXIT_FAILURE);
+    }
+
+    if (outputName.empty()) {
+        cerr << "No output file name specified. Exiting..." << endl;
+        exit(EXIT_FAILURE);
+    }
+
+    tumorName  = argv[argc - 2];
+    normalName = argv[argc - 1];
 
     mplp_conf_t mplp(refName, argc, argv);
-    mpileup(mplp, tumorName, normalName, outputName, threadNum);
-
+    mpileup(mplp, tumorName, normalName, outputName, usableThreads);
 }
 
 void get_MuseSumpOpts(int argc, char *argv[]){
