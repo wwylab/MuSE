@@ -215,7 +215,7 @@ void get_MuseSumpOpts(int argc, char *argv[]){
     bool       isWGS        = false;
     bool       isWES        = false;
 
-    const char *threadNum_c = "0";
+    const char *threadNum_c = "1";
     int threadNum;
     // command options
     //
